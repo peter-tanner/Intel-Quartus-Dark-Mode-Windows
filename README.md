@@ -10,6 +10,7 @@ Run `install.ps1` in an admin powershell prompt (requires admin access to i) mod
 
 - Powershell is installed
 - Quartus has been installed and run at least once
+- Clone this repository: `git clone https://github.com/peter-tanner/Intel-Quartus-Dark-Mode-Windows.git && cd Intel-Quartus-Dark-Mode-Windows`
 - Run `install.ps1` in an administrator powershell prompt
 
 ## Attribution
