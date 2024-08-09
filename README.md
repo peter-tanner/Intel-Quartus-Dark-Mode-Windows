@@ -13,6 +13,7 @@ This script automatically copies the resources and creates shortcuts to ensure e
 - Clone this repository: `git clone https://github.com/peter-tanner/Intel-Quartus-Dark-Mode-Windows.git && cd Intel-Quartus-Dark-Mode-Windows`
 - Run `install.ps1` in an administrator powershell prompt
   - requires admin access to i) modify registry entries to change file association to script and ii) copy icons and stylesheet to intel Quartus directory
+- Optional: Rename or remove the old shortcut. This depends on your installation (Mine is under `C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Intel FPGA 23.1std.1.993 Lite Edition\Quartus Prime Lite Edition 23.1std.1.993`)
 
 ## Images
 
@@ -27,5 +28,5 @@ See `LICENSE.md` for
 
 ## Bugs
 
-- The IDE has a white band where the folding tabs are.
 - A box used in license setup still has a white background
+- The scintilla-based text editor has missing color (transparent) bar in the folding column which appears white. It appears we cannot change this using stylesheets (See [issue: Add a stylesheet for QScintilla](https://github.com/ColinDuquesnoy/QDarkStyleSheet/issues/122))

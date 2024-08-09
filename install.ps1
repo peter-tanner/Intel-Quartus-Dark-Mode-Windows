@@ -89,9 +89,10 @@ if (Test-Path $quartusSettingsPath) {
         $suffix++
     } while (Test-Path $quartusBakPath)
 }
+
 Copy-Item -Path $quartusSettingsPath -Destination $quartusBakPath
 $replacements = @{
-    "Altera_Foundation_Class\\AFCQ_TED_KEYWORD_COLOR.+" = "Altera_Foundation_Class\AFCQ_TED_KEYWORD_COLOR=@Variant(\0\0\0\x43\0\xff\xff\0\0\0\0\0\0\0\0)"
+    "Altera_Foundation_Class\\AFCQ_TED_KEYWORD_COLOR.+" = "Altera_Foundation_Class\AFCQ_TED_KEYWORD_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\xff\xff\xff\xff\xff\xff\0\0)"
     "Altera_Foundation_Class\\AFCQ_TED_NORMAL_COLOR.+" = "Altera_Foundation_Class\AFCQ_TED_NORMAL_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\xdf\xdf\xe1\xe1\xe2\xe2\0\0)"
     "Altera_Foundation_Class\\AFCQ_TED_BACKGROUND_COLOR.+" = "Altera_Foundation_Class\AFCQ_TED_BACKGROUND_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\x19\x19##--\0\0)"
     "Altera_Foundation_Class\\AFCQ_TED_LINE_NUMBER_COLOR.+" = "Altera_Foundation_Class\AFCQ_TED_LINE_NUMBER_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\xdf\xdf\xe1\xe1\xe2\xe2\0\0)"
@@ -107,6 +108,7 @@ $replacements = @{
     "Altera_Foundation_Class\\AFCQ_TED_SINGLE_COLOR.+" = "Altera_Foundation_Class\AFCQ_TED_SINGLE_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\0\0\xc0\xc0\0\0\0\0)"
     "Altera_Foundation_Class\\AFCQ_TED_STRING_COLOR.+" = "Altera_Foundation_Class\AFCQ_TED_STRING_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\xe8\xe8\0\0\xe8\xe8\0\0)"
     "Altera_Foundation_Class\\AFCQ_TED_IDENTIFIER_COLOR.+" = "Altera_Foundation_Class\AFCQ_TED_IDENTIFIER_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\xe8\xe8\0\0\xe8\xe8\0\0)"
+    "Altera_Foundation_Class\\AFCQ_MSW_INFO_COLOR.+=" = "Altera_Foundation_Class\AFCQ_MSW_INFO_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\0\0\xc0\xc0\0\0\0\0)"
 }
 $quartusSettings = Get-Content -Path $quartusSettingsPath -Raw
 foreach ($key in $replacements.Keys) {
