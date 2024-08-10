@@ -1974,6 +1974,18 @@ QTableCornerButton::section {
   border-radius: 0px;
 }
 
+/* Unfortunately Altera made a dumb decision in the pin planner to hardcode the
+default cell color and not leave an option for it in the color settings, which
+results in the cells being set to white everytime a change is made, making white
+font unreadable.... therefore I had no choice but to make these panels light
+(and yes I tried to only make the individual items white but this
+PPLQ_NODE_TABLE object does not have an entry PPLQ_NODE_TABLE::item to style) */
+PPLQ_NODE_TABLE
+{
+  color: #19232D;
+  background-color: #9DA9B5;
+}
+
 /* QHeaderView ------------------------------------------------------------
 
 https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qheaderview

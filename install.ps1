@@ -125,6 +125,11 @@ $replacements = @{
     "Altera_Foundation_Class\\AFCQ_NUI_INSTANCE_REGION_COLOR.+" = "Altera_Foundation_Class\AFCQ_NUI_INSTANCE_REGION_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\x37\x37\x41\x41OO\0\0)"
     "Altera_Foundation_Class\\AFCQ_NUI_INSTANCE_ATOM_COLOR.+" = "Altera_Foundation_Class\AFCQ_NUI_INSTANCE_ATOM_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\x1a\x1arr\xbb\xbb\0\0)"
     "Altera_Foundation_Class\\AFCQ_NUI_ENCRYPTED_INSTANCE_COLOR.+" = "Altera_Foundation_Class\AFCQ_NUI_ENCRYPTED_INSTANCE_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\x45\x45SSdd\0\0)"
+
+    # Pin assignment view
+    # Unfortunately we cannot set the line/text color to white, so we can't set 
+    # the background to black. Settling for a gray background instead.
+    "Altera_Foundation_Class\\AFCQ_PPLQ_BACKGROUND_COLOR.+" = "Altera_Foundation_Class\AFCQ_PPLQ_BACKGROUND_COLOR=@Variant(\0\0\0\x43\x1\xff\xffTThhzz\0\0)"
 }
 $quartusSettings = Get-Content -Path $quartusSettingsPath -Raw
 foreach ($key in $replacements.Keys) {

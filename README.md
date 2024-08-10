@@ -1,4 +1,4 @@
-# Intel Quartus Dark Mode Windows
+# Intel/Altera Quartus Dark Mode Windows
 
 ![Dark mode image](sample.png)
 
@@ -33,3 +33,4 @@ See `LICENSE.md` for
 
 - A box used in license setup still has a white background
 - The scintilla-based text editor has missing color (transparent) bar in the folding column which appears white. It appears we cannot change this using stylesheets (See [issue: Add a stylesheet for QScintilla](https://github.com/ColinDuquesnoy/QDarkStyleSheet/issues/122))
+- Pin planner is gray mode at best because Altera did not design this interface to be styled anything but light mode. Whenever a cell is set, every other cell is reset to a hardcoded white color, and the BGA view has hardcoded black text.
