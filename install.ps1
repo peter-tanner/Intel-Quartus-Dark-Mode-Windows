@@ -47,7 +47,7 @@ $WScriptShell = New-Object -ComObject WScript.Shell
 $shortcut = $WScriptShell.CreateShortcut("$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Quartus.lnk")
 $shortcut.TargetPath = "wscript.exe"
 $shortcut.Arguments = "`"$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Quartus.vbs`""
-$shortcut.WorkingDirectory = "D:\intelFPGA_lite\23.1std"
+$shortcut.WorkingDirectory = $(Split-Path $installPath)
 $shortcut.IconLocation = "$installPath\bin64\quartus.exe,0"
 $shortcut.Save()
 
@@ -57,7 +57,8 @@ $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $content = Get-Content "$scriptDir\darkstyle.qss"
 $styleWithPath = $content -replace 'url\(":/dark_icons', "url(`"$($installPath -replace '\\', '/')/ZZZ_dark_icons"
 Set-Content -Path "$installPath\darkstyle.qss" -Value $styleWithPath
-Copy-Item -Path "$scriptDir\dark_icons" -Destination "$installPath\ZZZ_dark_icons" -Recurse -Force
+New-Item -Force -Type Directory "$installPath\ZZZ_dark_icons"
+Copy-Item -Path "$scriptDir\dark_icons\*" -Destination "$installPath\ZZZ_dark_icons" -Recurse -Force
 
 Write-Output "Rewrite registry entries for file association open commands"
 
@@ -85,13 +86,14 @@ $quartusSettingsPath = "$HOME\quartus2.qreg"
 if (Test-Path $quartusSettingsPath) {
     $suffix = 1
     do {
-        $quartusBakPath = [System.IO.Path]::ChangeExtension($quartusSettingsPath, "$suffix" + [System.IO.Path]::GetExtension($quartusSettingsPath))
+        $quartusBakPath = [System.IO.Path]::ChangeExtension($quartusSettingsPath, "$suffix" + "_backup" + [System.IO.Path]::GetExtension($quartusSettingsPath))
         $suffix++
     } while (Test-Path $quartusBakPath)
 }
 
 Copy-Item -Path $quartusSettingsPath -Destination $quartusBakPath
 $replacements = @{
+    # Scintilla based text editor
     "Altera_Foundation_Class\\AFCQ_TED_KEYWORD_COLOR.+" = "Altera_Foundation_Class\AFCQ_TED_KEYWORD_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\xff\xff\xff\xff\xff\xff\0\0)"
     "Altera_Foundation_Class\\AFCQ_TED_NORMAL_COLOR.+" = "Altera_Foundation_Class\AFCQ_TED_NORMAL_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\xdf\xdf\xe1\xe1\xe2\xe2\0\0)"
     "Altera_Foundation_Class\\AFCQ_TED_BACKGROUND_COLOR.+" = "Altera_Foundation_Class\AFCQ_TED_BACKGROUND_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\x19\x19##--\0\0)"
@@ -109,6 +111,20 @@ $replacements = @{
     "Altera_Foundation_Class\\AFCQ_TED_STRING_COLOR.+" = "Altera_Foundation_Class\AFCQ_TED_STRING_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\xe8\xe8\0\0\xe8\xe8\0\0)"
     "Altera_Foundation_Class\\AFCQ_TED_IDENTIFIER_COLOR.+" = "Altera_Foundation_Class\AFCQ_TED_IDENTIFIER_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\xe8\xe8\0\0\xe8\xe8\0\0)"
     "Altera_Foundation_Class\\AFCQ_MSW_INFO_COLOR.+=" = "Altera_Foundation_Class\AFCQ_MSW_INFO_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\0\0\xc0\xc0\0\0\0\0)"
+
+    # RTL viewer
+    "Altera_Foundation_Class\\AFCQ_NUI_BACKGROUND_COLOR.+" = "Altera_Foundation_Class\AFCQ_NUI_BACKGROUND_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\x19\x19##--\0\0)"
+    "Altera_Foundation_Class\\AFCQ_NUI_INSTANE_FONT_COLOR.+" = "Altera_Foundation_Class\AFCQ_NUI_INSTANE_FONT_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\xff\xff\0\0\xff\xff\0\0)"
+    "Altera_Foundation_Class\\AFCQ_NUI_RIPPER_COLOR.+" = "Altera_Foundation_Class\AFCQ_NUI_RIPPER_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\0\0\xff\xff\xff\xff\0\0)"
+    "Altera_Foundation_Class\\AFCQ_NUI_NET_COLOR.+" = "Altera_Foundation_Class\AFCQ_NUI_NET_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\xff\xff\xff\xff\0\0\0\0)"
+    "Altera_Foundation_Class\\AFCQ_NUI_PIN_COLOR.+" = "Altera_Foundation_Class\AFCQ_NUI_PIN_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\0\0\xff\xff\xff\xff\0\0)"
+    "Altera_Foundation_Class\\AFCQ_NUI_PORT_COLOR.+" = "Altera_Foundation_Class\AFCQ_NUI_PORT_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\0\0\xff\xff\xff\xff\0\0)"
+    "Altera_Foundation_Class\\AFCQ_NUI_PRIMITIVE_COLOR.+" = "Altera_Foundation_Class\AFCQ_NUI_PRIMITIVE_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\x1a\x1arr\xbb\xbb\0\0)"
+    "Altera_Foundation_Class\\AFCQ_NUI_SELECTION_COLOR.+" = "Altera_Foundation_Class\AFCQ_NUI_SELECTION_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\xff\xff\0\0\0\0\0\0)"
+    "Altera_Foundation_Class\\AFCQ_NUI_INSTANCE_COLOR.+" = "Altera_Foundation_Class\AFCQ_NUI_INSTANCE_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\0\0\x80\x80\0\0\0\0)"
+    "Altera_Foundation_Class\\AFCQ_NUI_INSTANCE_REGION_COLOR.+" = "Altera_Foundation_Class\AFCQ_NUI_INSTANCE_REGION_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\x37\x37\x41\x41OO\0\0)"
+    "Altera_Foundation_Class\\AFCQ_NUI_INSTANCE_ATOM_COLOR.+" = "Altera_Foundation_Class\AFCQ_NUI_INSTANCE_ATOM_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\x1a\x1arr\xbb\xbb\0\0)"
+    "Altera_Foundation_Class\\AFCQ_NUI_ENCRYPTED_INSTANCE_COLOR.+" = "Altera_Foundation_Class\AFCQ_NUI_ENCRYPTED_INSTANCE_COLOR=@Variant(\0\0\0\x43\x1\xff\xff\x45\x45SSdd\0\0)"
 }
 $quartusSettings = Get-Content -Path $quartusSettingsPath -Raw
 foreach ($key in $replacements.Keys) {

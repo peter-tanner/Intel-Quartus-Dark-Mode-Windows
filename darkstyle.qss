@@ -37,6 +37,28 @@ QToolBar * {
   padding: 0px;
 }
 
+/* For some reason I can't set the background color of the window manager tabs
+in RTL viewer, so I am just going to make it have the defualt white background
+and black text */
+NUIQ_MDI_AREA QTabBar::tab {
+  color: #19232D;
+}
+
+NUIQ_MDI_AREA QTabBar::close-button {
+  border: 0;
+  margin: 0;
+  padding: 4px;
+  image: url(":/dark_icons/light/window_close.png");
+}
+
+NUIQ_MDI_AREA QTabBar::close-button:hover {
+  image: url(":/dark_icons/light/window_close_focus.png");
+}
+
+NUIQ_MDI_AREA QTabBar::close-button:pressed {
+  image: url(":/dark_icons/light/window_close_pressed.png");
+}
+
 /* QWidget ----------------------------------------------------------------
 
 --------------------------------------------------------------------------- */

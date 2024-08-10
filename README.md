@@ -14,12 +14,15 @@ This script automatically copies the resources and creates shortcuts to ensure e
 - Run `install.ps1` in an administrator powershell prompt
   - requires admin access to i) modify registry entries to change file association to script and ii) copy icons and stylesheet to intel Quartus directory
 - Optional: Rename or remove the old shortcut. This depends on your installation (Mine is under `C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Intel FPGA 23.1std.1.993 Lite Edition\Quartus Prime Lite Edition 23.1std.1.993`)
+- RTL view: Select custom theme for dark mode colors
 
 ## Images
 
 ![Dark mode image](sample.png)
 
 ![Dark mode report view image](sample2.png)
+
+![Dark mode RTL view image](sample3.png)
 
 ## Attribution
 
